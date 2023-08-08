@@ -4,16 +4,19 @@ import Home from "./Pages/Home/Home";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Shop from "./Pages/Shop/Shop";
+import ShopContextProvider from "./context/ShopContext";
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
-      </Routes>
-      <Footer />
+      <ShopContextProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+        </Routes>
+        <Footer />
+      </ShopContextProvider>
     </>
   );
 }

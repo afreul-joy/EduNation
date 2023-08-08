@@ -10,7 +10,7 @@
       "badgeText": "New Arrival",
       "outOfStock": false,
       "fastDeliveryAvailable": false,
-      "genre": "fiction",
+      "category": "fiction",
       "rating": 4,
       "description": "Harry Potter and the Deathly Hallows is a fantasy novel written by British author J. K. Rowling and the seventh and final novel of the main Harry Potter series. It was released on 14 July 2007 in the United Kingdom by Bloomsbury Publishing, in the United States by Scholastic, and in Canada by Raincoast Books."
     },
@@ -18,14 +18,14 @@
       "bookName": "The Fault In Our Stars",
       "author": "John Green",
       "originalPrice": 225,
-      "discountedPrice": 200,
+      "discountedPrice": 70,
       "discountPercent": 25,
       "imgSrc": "https://i.ibb.co/cg7Cszt/The-Fault-in-Our-Stars.jpg",
       "imgAlt": "Book-The_Fault_In_Our_Stars",
       "badgeText": "New Arrival",
       "outOfStock": false,
       "fastDeliveryAvailable": false,
-      "genre": "romance",
+      "category": "romance",
       "rating": 1,
       "description": "The Fault in Our Stars is a novel by John Green. It is his fourth solo novel, and sixth novel overall. It was published on January 10, 2012."
     },
@@ -33,14 +33,14 @@
       "bookName": "I too had a love story",
       "author": "Ravinder Singh",
       "originalPrice": 400,
-      "discountedPrice": 300,
+      "discountedPrice": 90,
       "discountPercent": 25,
       "imgSrc": "https://i.ibb.co/Vj6tV3q/I-too-had-a-love-story.jpg",
       "imgAlt": "Book - I too had a love story",
       "badgeText": "Romance",
       "outOfStock": false,
       "fastDeliveryAvailable": false,
-      "genre": "romance",
+      "category": "romance",
       "rating": 3,
       "description": "I Too Had a Love Story is an English autobiographical novel written by Ravinder Singh. This was the debut novel of the author and was first published in 2008 by Srishti Publishers, in 2012 it was republished by Penguin India."
     },
@@ -55,7 +55,7 @@
       "badgeText": "Thriller",
       "outOfStock": false,
       "fastDeliveryAvailable": false,
-      "genre": "thriller",
+      "category": "thriller",
       "rating": 4,
       "description": "The Mystery of the Blue Train is a work of detective fiction by British writer Agatha Christie, first published in the United Kingdom by William Collins & Sons on 29 March 1928 and in the United States by Dodd, Mead and Company later in the same year."
     },
@@ -70,7 +70,7 @@
       "badgeText": "Popular",
       "outOfStock": false,
       "fastDeliveryAvailable": true,
-      "genre": "fiction",
+      "category": "fiction",
       "rating": 2,
       "description": "A Dance with Dragons is the fifth novel of seven planned in the epic fantasy series A Song of Ice and Fire by American author George R. R. Martin. In some areas, the paperback edition was published in two parts, titled Dreams and Dust and After the Feast."
     },
@@ -78,14 +78,14 @@
       "bookName": "Thus Spoke Zarathustra",
       "author": "Friedrich Nietzche",
       "originalPrice": 400,
-      "discountedPrice": 300,
+      "discountedPrice": 100,
       "discountPercent": 25,
       "imgSrc": "https://i.ibb.co/mtRb1fd/Death-On-The-Nile.jpg",
       "imgAlt": "Book - Thus Spoke Zarathustra",
       "badgeText": "Best Seller",
       "outOfStock": false,
       "fastDeliveryAvailable": false,
-      "genre": "philosophy",
+      "category": "philosophy",
       "rating": 4,
       "description": "Thus Spoke Zarathustra: A Book for All and None, also translated as Thus Spake Zarathustra, is a work of philosophical fiction written by German philosopher Friedrich Nietzsche between 1883 and 1885."
     },
@@ -100,7 +100,7 @@
       "badgeText": "Romance",
       "outOfStock": false,
       "fastDeliveryAvailable": false,
-      "genre": "romance",
+      "category": "romance",
       "rating": 5,
       "description": "Fifty Shades of Grey is a 2011 erotic romance novel by British author E. L. James. It became the first installment in the Fifty Shades novel series that follows the deepening relationship between a college graduate, Anastasia Steele, and a young business magnate, Christian Grey."
     },
@@ -115,7 +115,7 @@
       "badgeText": "Best Seller",
       "outOfStock": true,
       "fastDeliveryAvailable": false,
-      "genre": "philosophy",
+      "category": "philosophy",
       "rating": 3,
       "description": "Man's Search for Meaning is a 1946 book by Viktor Frankl chronicling his experiences as a prisoner in Nazi concentration camps during World War II, and describing his psychotherapeutic method, which involved identifying a purpose in life to feel positive about, and then immersively imagining that outcome."
     },
@@ -130,7 +130,7 @@
       "badgeText": "Trending",
       "outOfStock": false,
       "fastDeliveryAvailable": true,
-      "genre": "fiction",
+      "category": "fiction",
       "rating": 2,
       "description": "The Da Vinci Code is a 2003 mystery thriller novel by Dan Brown. It is Brown's second novel to include the character Robert Langdon: the first was his 2000 novel Angels & Demons."
     },
@@ -145,7 +145,7 @@
       "badgeText": "Trending",
       "outOfStock": false,
       "fastDeliveryAvailable": true,
-      "genre": "fiction",
+      "category": "fiction",
       "rating": 3,
       "description": "Angels & Demons is a 2000 bestselling mystery-thriller novel written by American author Dan Brown and published by Pocket Books and then by Corgi Books. The novel introduces the character Robert Langdon, who recurs as the protagonist of Brown's subsequent novels."
     },
@@ -160,7 +160,7 @@
       "badgeText": "Best Seller",
       "outOfStock": false,
       "fastDeliveryAvailable": false,
-      "genre": "philosophy",
+      "category": "philosophy",
       "rating": 4,
       "description": "The Gulag Archipelago: An Experiment in Literary Investigation is a three-volume non-fiction text written between 1958 and 1968 by Russian writer and Soviet dissident Aleksandr Solzhenitsyn. It was first published in 1973, and translated into English and French the following year."
     },
@@ -175,7 +175,7 @@
       "badgeText": "Best Seller",
       "outOfStock": true,
       "fastDeliveryAvailable": true,
-      "genre": "fiction",
+      "category": "fiction",
       "rating": 4,
       "description": "The Secret is a 2006 self-help book by Rhonda Byrne, based on the earlier film of the same name. It is based on the belief of the pseudoscientific law of attraction, which claims that thoughts can change a person's life directly. The book alleges energy as assurance of its effectiveness."
     },
@@ -190,7 +190,7 @@
       "badgeText": "Popular",
       "outOfStock": false,
       "fastDeliveryAvailable": false,
-      "genre": "fiction",
+      "category": "fiction",
       "rating": 5,
       "description": "Attack on Titan is a Japanese manga series both written and illustrated by Hajime Isayama. It is set in a world where humanity lives inside cities surrounded by enormous walls due to the Titans, gigantic humanoid beings."
     },
@@ -205,7 +205,7 @@
       "badgeText": "Popular",
       "outOfStock": true,
       "fastDeliveryAvailable": false,
-      "genre": "fiction",
+      "category": "fiction",
       "rating": 3,
       "description": "Naruto is a Japanese manga series written and illustrated by Masashi Kishimoto. It tells the story of Naruto Uzumaki, a young ninja who seeks recognition from his peers and dreams of becoming the Hokage, the leader of his village."
     },
@@ -220,7 +220,7 @@
       "badgeText": "Best Seller",
       "outOfStock": false,
       "fastDeliveryAvailable": true,
-      "genre": "programming",
+      "category": "programming",
       "rating": 5,
       "description": "Eloquent JavaScript, 3rd Edition: A Modern Introduction to Programming is a book by Marijn Haverbeke, which provides an introduction to the JavaScript programming language and programming in general."
     },
@@ -235,7 +235,7 @@
       "badgeText": "Best Seller",
       "outOfStock": false,
       "fastDeliveryAvailable": true,
-      "genre": "programming",
+      "category": "programming",
       "rating": 5,
       "description": "You Don't Know JS is a series of books by Kyle Simpson which aims to provide an in-depth understanding of JavaScript and its intricacies."
     }
