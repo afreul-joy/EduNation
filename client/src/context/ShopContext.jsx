@@ -8,7 +8,8 @@ const ShopContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({
     category: "",
-    priceRange: "",
+    minPrice: "", // New property for minimum price
+    maxPrice: "", // New property for maximum price
     rating: "",
   });
 
@@ -24,7 +25,9 @@ const ShopContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <ShopContext.Provider value={{ products, setProducts, filters, setFilters }}>
+    <ShopContext.Provider
+      value={{ products, setProducts, filters, setFilters }}
+    >
       {children}
     </ShopContext.Provider>
   );
