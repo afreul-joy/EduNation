@@ -11,6 +11,7 @@ const ShopContextProvider = ({ children }) => {
     minPrice: "", // New property for minimum price
     maxPrice: "", // New property for maximum price
     rating: "",
+    sliderRange: [0, 5000], // Added slider range
   });
 
   useEffect(() => {

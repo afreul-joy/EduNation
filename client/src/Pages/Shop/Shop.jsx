@@ -2,6 +2,8 @@ import { useContext } from "react";
 import ProductCard from "../../Components/Card/ProductCard";
 import { ShopContext } from "../../context/ShopContext";
 import { FaStar } from "react-icons/fa";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
 
 const Shop = () => {
   const { products, filters, setFilters } = useContext(ShopContext);
@@ -27,16 +29,34 @@ const Shop = () => {
         ? filters.category.filter((category) => category !== value)
         : [...filters.category, value];
       setFilters({ ...filters, [filterType]: updatedCategories });
-    } else if (filterType === "maxPrice") {
-      // Convert the value to a number and update the filter
-      const newValue = parseInt(value);
-      setFilters({ ...filters, [filterType]: newValue });
+    } else if (filterType === "priceRange") {
+      const [minPrice, maxPrice] = value;
+
+      // Ensure non-negative values
+      const updatedMinPrice = Math.max(0, parseFloat(minPrice));
+      const updatedMaxPrice = Math.max(updatedMinPrice, parseFloat(maxPrice));
+
+      // Update slider range
+      const newSliderRange = [updatedMinPrice, updatedMaxPrice];
+      setFilters({
+        ...filters,
+        minPrice: updatedMinPrice,
+        maxPrice: updatedMaxPrice,
+        sliderRange: newSliderRange,
+      });
     } else {
       setFilters({ ...filters, [filterType]: value });
     }
   };
 
-  const categories = ["fiction", "romance", "philosophy", "thriller", "romance","programming",]; // Add more categories
+  const categories = [
+    "fiction",
+    "romance",
+    "philosophy",
+    "thriller",
+    "programming",
+  ];
+
   return (
     <div className="flex flex-wrap">
       {/* Left Column - Filters */}
@@ -69,31 +89,31 @@ const Shop = () => {
         <div className="bg-white shadow-md p-4 mt-4">
           <h3 className="text-lg font-semibold">Price Range</h3>
           <div className="flex items-center mt-2">
+            <label htmlFor="min">Min</label>
             <input
-              type="number"
-              className="w-1/3 p-2 mr-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 text-xs" 
-              placeholder="Min Price"
+              type="text"
+              className="w-1/3 p-2 ml-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 text-xs"
+              placeholder="0"
               value={filters.minPrice}
               onChange={(e) => handleFilterChange("minPrice", e.target.value)}
             />
             <span className="mx-2">-</span>
+            <label htmlFor="max">Max</label>
             <input
-              type="number"
+              type="text"
               className="w-1/3 p-2 ml-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 text-xs"
-              placeholder="Max Price"
+              placeholder="5000"
               value={filters.maxPrice}
               onChange={(e) => handleFilterChange("maxPrice", e.target.value)}
             />
           </div>
-          {/* Price Range Bar */}
           <div className="flex items-center mt-4">
-            <input
-              type="range"
-              className="w-full"
-              min="1"
-              max="1000"
-              value={filters.maxPrice}
-              onChange={(e) => handleFilterChange("maxPrice", e.target.value)}
+            <Slider
+              range
+              min={0}
+              max={5000}
+              value={[filters.minPrice, filters.maxPrice]}
+              onChange={(value) => handleFilterChange("priceRange", value)}
             />
           </div>
         </div>
@@ -146,7 +166,7 @@ const Shop = () => {
       </div>
 
       {/* Right Column - Product List */}
-      <div className="w-full md:w-4/5 p-4"> 
+      <div className="w-full md:w-4/5 p-4">
         {/* Display filtered product count */}
         <h2 className="text-3xl font-light mb-4 text-center text-gray-600">
           Number Of Products : {filteredProducts.length}
