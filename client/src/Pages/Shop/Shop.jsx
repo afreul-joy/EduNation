@@ -1,12 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ProductCard from "../../Components/Card/ProductCard";
 import { ShopContext } from "../../context/ShopContext";
 import { FaStar } from "react-icons/fa";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import ProductListCard from "../../Components/Card/ProductListCard";
 
 const Shop = () => {
   const { products, filters, setFilters } = useContext(ShopContext);
+  const [viewType, setViewType] = useState("grid"); // Add state for view type
 
   const filteredProducts = products.filter((product) => {
     return (
@@ -56,6 +58,27 @@ const Shop = () => {
     "thriller",
     "programming",
   ];
+
+  // SORTING PRODUCTS
+  const sortProducts = (filteredProducts) => {
+    if (filters.sortBy === "priceLowToHigh") {
+      return filteredProducts.sort(
+        (a, b) => a.discountedPrice - b.discountedPrice
+      );
+    } else if (filters.sortBy === "priceHighToLow") {
+      return filteredProducts.sort(
+        (a, b) => b.discountedPrice - a.discountedPrice
+      );
+    }
+    return filteredProducts;
+  };
+
+  const sortedProducts = sortProducts(filteredProducts);
+
+  // View change
+  const handleViewChange = (viewType) => {
+    setViewType(viewType); // Update the view type state
+  };
 
   return (
     <div className="flex flex-wrap">
@@ -168,13 +191,60 @@ const Shop = () => {
       {/* Right Column - Product List */}
       <div className="w-full md:w-4/5 p-4">
         {/* Display filtered product count */}
-        <h2 className="text-3xl font-light mb-4 text-center text-gray-600">
-          Number Of Products : {filteredProducts.length}
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center space-x-4">
+            <button
+              className={`${
+                viewType === "grid" ? "bg-blue-600" : "bg-blue-500"
+              } hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded`}
+              onClick={() => handleViewChange("grid")}
+            >
+              Grid View
+            </button>
+            <button
+              className={`${
+                viewType === "list" ? "bg-blue-600" : "bg-blue-500"
+              } hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded`}
+              onClick={() => handleViewChange("list")}
+            >
+              List View
+            </button>
+          </div>
+          <div>
+            <h2 className="text-3xl font-light text-gray-600">
+              {filteredProducts.length} Book Found
+            </h2>
+          </div>
+          <div>
+            {/* Sorting Dropdown */}
+            <label htmlFor="sort" className="text-gray-600">
+              Sort by:
+            </label>
+            <select
+              id="sort"
+              className="border rounded-md px-2 py-1 focus:outline-none focus:ring focus:border-blue-300"
+              value={filters.sortBy}
+              onChange={(e) => handleFilterChange("sortBy", e.target.value)}
+            >
+              <option value="priceLowToHigh">Price: Low to High</option>
+              <option value="priceHighToLow">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+        <div
+          className={`${
+            viewType === "grid"
+              ? "grid-cols-1 sm:grid-cols-3 md:grid-cols-4"
+              : "grid-cols-1"
+          } grid gap-4`}
+        >
+          {sortedProducts.map((product) =>
+            viewType === "grid" ? (
+              <ProductCard key={product._id} product={product} />
+            ) : (
+              <ProductListCard key={product._id} product={product} />
+            )
+          )}
         </div>
       </div>
     </div>
