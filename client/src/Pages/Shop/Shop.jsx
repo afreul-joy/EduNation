@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import ProductCard from "../../Components/Card/ProductCard";
 import { ShopContext } from "../../context/ShopContext";
 import { FaStar } from "react-icons/fa";
+import { PiListFill, PiGridFourFill } from "react-icons/pi";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import ProductListCard from "../../Components/Card/ProductListCard";
@@ -192,23 +193,28 @@ const Shop = () => {
       <div className="w-full md:w-4/5 p-4">
         {/* Display filtered product count */}
         <div className="flex justify-between items-center mb-4">
-          <div className="flex items-center space-x-4">
-            <button
-              className={`${
-                viewType === "grid" ? "bg-blue-600" : "bg-blue-500"
-              } hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded`}
+          <div className="flex justify-between">
+            {/* viewing  */}
+            <label htmlFor="view" className="text-gray-600">
+              View :
+            </label>
+            <div
+              className={`cursor-pointer ${
+                viewType === "grid" ? "text-slate-900" : "text-slate-500"
+              } hover:text-slate-700`}
               onClick={() => handleViewChange("grid")}
             >
-              Grid View
-            </button>
-            <button
-              className={`${
-                viewType === "list" ? "bg-blue-600" : "bg-blue-500"
-              } hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded`}
+              <PiGridFourFill className="inline-block mr-2 text-lg" size={25} />
+            </div>
+            {/* List View Icon */}
+            <div
+              className={`cursor-pointer ${
+                viewType === "list" ? "text-slate-900" : "text-slate-500"
+              } hover:text-slate-700`}
               onClick={() => handleViewChange("list")}
             >
-              List View
-            </button>
+              <PiListFill className="inline-block mr-2 text-lg" size={25} />
+            </div>
           </div>
           <div>
             <h2 className="text-3xl font-light text-gray-600">
