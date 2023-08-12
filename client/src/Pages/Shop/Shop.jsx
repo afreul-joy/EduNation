@@ -6,9 +6,9 @@ import { PiListFill, PiGridFourFill } from "react-icons/pi";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import ProductListCard from "../../Components/Card/ProductListCard";
-
+import Select from "react-select";
 const Shop = () => {
-  const { products, filters, setFilters } = useContext(ShopContext);
+  const { products, filters, setFilters,clearFilters } = useContext(ShopContext);
   const [viewType, setViewType] = useState("grid"); // Add state for view type
 
   const filteredProducts = products.filter((product) => {
@@ -76,16 +76,31 @@ const Shop = () => {
 
   const sortedProducts = sortProducts(filteredProducts);
 
+  // Sort options for react-select
+  const sortOptions = [
+    { value: "priceLowToHigh", label: "Price: Low to High" },
+    { value: "priceHighToLow", label: "Price: High to Low" },
+  ];
+
   // View change
   const handleViewChange = (viewType) => {
     setViewType(viewType); // Update the view type state
   };
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap ">
       {/* Left Column - Filters */}
 
       <div className="w-full md:w-1/5 p-4 sm:w-full">
+      <div className="flex justify-between mb-4">
+        <h2> Filters:  </h2>
+          <button
+            className="text-red-500 hover:text-red-700 font-semibold cursor-pointer"
+            onClick={clearFilters}
+          >
+            Clear Filters
+          </button>
+        </div>
         {/* Category Filtering */}
         <div className="bg-white shadow-md p-4">
           <h3 className="text-lg font-semibold ">Category</h3>
@@ -191,17 +206,17 @@ const Shop = () => {
 
       {/* Right Column - Product List */}
       <div className="w-full md:w-4/5 p-4">
-        {/* Display filtered product count */}
-        <div className="flex justify-between items-center mb-4">
-          <div className="flex justify-between">
-            {/* viewing  */}
-            <label htmlFor="view" className="text-gray-600">
-              View :
+        {/* --------heading--------  */}
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
+          {/* Viewing Options */}
+          <div className="flex justify-between mb-2 sm:mb-0">
+            <label htmlFor="view" className="text-gray-600 mr-2">
+              View:
             </label>
             <div
               className={`cursor-pointer ${
                 viewType === "grid" ? "text-slate-900" : "text-slate-500"
-              } hover:text-slate-700`}
+              } hover:text-slate-700 mr-2 sm:mr-4`}
               onClick={() => handleViewChange("grid")}
             >
               <PiGridFourFill className="inline-block mr-2 text-lg" size={25} />
@@ -216,27 +231,49 @@ const Shop = () => {
               <PiListFill className="inline-block mr-2 text-lg" size={25} />
             </div>
           </div>
-          <div>
+          {/* Book Count */}
+          <div className="mb-2 sm:mb-0">
             <h2 className="text-3xl font-light text-gray-600">
               {filteredProducts.length} Book Found
             </h2>
           </div>
-          <div>
-            {/* Sorting Dropdown */}
-            <label htmlFor="sort" className="text-gray-600">
+          {/* Sorting */}
+          <div className="flex justify-end items-center space-x-2 sm:space-x-4">
+            <label htmlFor="sort" className="text-gray-600 mr-2">
               Sort by:
             </label>
-            <select
-              id="sort"
-              className="border rounded-md px-2 py-1 focus:outline-none focus:ring focus:border-blue-300"
-              value={filters.sortBy}
-              onChange={(e) => handleFilterChange("sortBy", e.target.value)}
-            >
-              <option value="priceLowToHigh">Price: Low to High</option>
-              <option value="priceHighToLow">Price: High to Low</option>
-            </select>
+            <div className="text-gray-600">
+              <Select
+                id="sort"
+                options={sortOptions}
+                value={sortOptions.find(
+                  (option) => option.value === filters.sortBy
+                )}
+                onChange={(selectedOption) =>
+                  handleFilterChange("sortBy", selectedOption.value)
+                }
+                className=" text-black focus:ring "
+                styles={{
+                  control: (provided, state) => ({
+                    ...provided,
+                    border: "1px solid black",
+                    boxShadow: state.isFocused ? "0 0 0 2px black" : "none",
+                  }),
+                  option: (provided, state) => ({
+                    ...provided,
+                    backgroundColor: state.isFocused ? "black" : "white",
+                    color: state.isFocused ? "white" : "black",
+                  }),
+                  singleValue: (provided) => ({
+                    ...provided,
+                    color: "black",
+                  }),
+                }}
+              />
+            </div>
           </div>
         </div>
+
         <div
           className={`${
             viewType === "grid"

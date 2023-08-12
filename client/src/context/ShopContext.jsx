@@ -11,8 +11,20 @@ const ShopContextProvider = ({ children }) => {
     minPrice: "", // New property for minimum price
     maxPrice: "", // New property for maximum price
     rating: "",
+    sortBy: "priceLowToHigh",
     sliderRange: [0, 5000], // Added slider range
   });
+
+  const clearFilters = () => {
+    setFilters({
+      category: [],
+      minPrice: "",
+      maxPrice: "",
+      rating: "",
+      sortBy: "priceLowToHigh",
+      sliderRange: [0, 5000],
+    });
+  };
 
   useEffect(() => {
     axios
@@ -27,7 +39,7 @@ const ShopContextProvider = ({ children }) => {
 
   return (
     <ShopContext.Provider
-      value={{ products, setProducts, filters, setFilters }}
+      value={{ products, setProducts, filters, setFilters,clearFilters }}
     >
       {children}
     </ShopContext.Provider>

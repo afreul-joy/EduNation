@@ -37,15 +37,18 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <Link to={`/product/${id}`}>
-      <div className="bg-white shadow-md overflow-hidden relative w-60 h-96 transition-transform hover:scale-105">
+    <>
+      <Link
+        to={`/product/${id}`}
+        className="bg-white shadow-md overflow-hidden relative w-60 h-96 transition-transform hover:scale-105"
+      >
         {/* Heart Icon */}
         <div className="absolute top-4 right-4">
           <Link to={`/product/${id}`}>
             <AiOutlineHeart
-            size={30}
-            className="text-gray-400 hover:text-rose-500 transition-colors "
-          />
+              size={30}
+              className="text-gray-400 hover:text-rose-500 transition-colors "
+            />
           </Link>
         </div>
 
@@ -92,8 +95,9 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+      {/* </Link> */}
+    </>
   );
 };
 
