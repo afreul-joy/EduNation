@@ -7,7 +7,7 @@ const SubNavbar = () => {
         <li>
           <Link
             to="/coming"
-            className="hover:text-orange-500 transition-colors"
+            className="hover:text-blue-500 transition-colors"
           >
             Today's Deals
           </Link>
@@ -15,7 +15,7 @@ const SubNavbar = () => {
         <li>
           <Link
             to="/coming"
-            className="hover:text-orange-500 transition-colors"
+            className="hover:text-blue-500 transition-colors"
           >
             DONATION
           </Link>
@@ -23,7 +23,7 @@ const SubNavbar = () => {
         <li>
           <Link
             to="/coming"
-            className="hover:text-orange-500 transition-colors"
+            className="hover:text-blue-500 transition-colors"
           >
             CUSTOMER CARE
           </Link>
@@ -31,7 +31,7 @@ const SubNavbar = () => {
         <li>
           <Link
             to="/coming"
-            className="hover:text-orange-500 transition-colors"
+            className="hover:text-blue-500 transition-colors"
           >
             Gift Cards
           </Link>
@@ -39,7 +39,7 @@ const SubNavbar = () => {
         <li>
           <Link
             to="/coming"
-            className="hover:text-orange-500 transition-colors"
+            className="hover:text-blue-500 transition-colors"
           >
             SIGNUP / LOGIN
           </Link>
