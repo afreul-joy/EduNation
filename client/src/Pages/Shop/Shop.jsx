@@ -7,8 +7,10 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import ProductListCard from "../../Components/Card/ProductListCard";
 import Select from "react-select";
+import Pagination from "../../Components/Pagination/Pagination";
 const Shop = () => {
-  const { products, filters, setFilters,clearFilters } = useContext(ShopContext);
+  const { products, filters, setFilters, clearFilters } =
+    useContext(ShopContext);
   const [viewType, setViewType] = useState("grid"); // Add state for view type
 
   const filteredProducts = products.filter((product) => {
@@ -87,18 +89,35 @@ const Shop = () => {
     setViewType(viewType); // Update the view type state
   };
 
+  //   Pagination
+  const itemsPerPage = 8;
+  // Update the number of total pages based on the filtered blogs
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
+
+  // State to keep track of the current page
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Get the current page's data to display
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentData = sortedProducts.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Function to handle page change
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   return (
     <div className="flex flex-wrap ">
       {/* Left Column - Filters */}
 
       <div className="w-full md:w-1/5 p-4 sm:w-full">
-      <div className="flex justify-between mb-4">
-        <h2> Filters:  </h2>
+        <div className="flex justify-between mb-4">
+          <h2> Filters: </h2>
           <button
-            className="text-red-500 hover:text-red-700 font-semibold cursor-pointer"
+            className="text-white bg-red-500 hover:bg-red-600 px-3 py-1 cursor-pointer"
             onClick={clearFilters}
           >
-            Clear Filters
+            Reset
           </button>
         </div>
         {/* Category Filtering */}
@@ -234,7 +253,7 @@ const Shop = () => {
           {/* Book Count */}
           <div className="mb-2 sm:mb-0">
             <h2 className="text-3xl font-light text-gray-600">
-              {filteredProducts.length} Book Found
+              {currentData.length} Book Found
             </h2>
           </div>
           {/* Sorting */}
@@ -281,7 +300,7 @@ const Shop = () => {
               : "grid-cols-1"
           } grid gap-4`}
         >
-          {sortedProducts.map((product) =>
+          {currentData.map((product) =>
             viewType === "grid" ? (
               <ProductCard key={product._id} product={product} />
             ) : (
@@ -289,6 +308,14 @@ const Shop = () => {
             )
           )}
         </div>
+      </div>
+
+      <div className=" mx-auto">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </div>
     </div>
   );

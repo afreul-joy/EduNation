@@ -1,0 +1,27 @@
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .pagination li {
+    margin: 0 2px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    font-size: 14px;
+  }
+  
+  .pagination li:hover {
+    background-color: gray;
+    color:white;
+  }
+  
+  /* Additional styles for the active page number */
+  .pagination .bg-blue-500 {
+    /* Add your preferred background and text color for the active page */
+    background-color: black;
+    color: #fff;
+    box-shadow: 0 0 6px rgba(74, 144, 226, 0.6);
+  }
+  
