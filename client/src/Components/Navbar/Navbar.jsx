@@ -1,21 +1,33 @@
-import React from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import brandLogo from "../../assets/Images/EduNation.png";
 import Select from "react-select";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { ShopContext } from "../../context/ShopContext";
+import { useNavigate } from "react-router-dom";
 
-const options = [
-  { value: "contact", label: "Contact Us" },
-  { value: "faq", label: "FAQ" },
-  { value: "terms", label: "Terms & Conditions" },
-  { value: "privacy", label: "Privacy Policy" },
-];
-
-const defaultOption = { value: "help", label: "Help" };
 
 const Navbar = () => {
+  // Add state to Navbar.jsx
+  const { setSearchQuery } = useContext(ShopContext);
+  const [searchInputValue, setSearchInputValue] = useState("");
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleSearch = () => {
+    setSearchQuery(searchInputValue);
+    navigate("/shop"); // Navigate to Shop page
+  };
+
+  const options = [
+    { value: "contact", label: "Contact Us" },
+    { value: "faq", label: "FAQ" },
+    { value: "terms", label: "Terms & Conditions" },
+    { value: "privacy", label: "Privacy Policy" },
+  ];
+
+  const defaultOption = { value: "help", label: "Help" };
+
   return (
     <nav className="p-4 border-b ">
       <div className="container mx-auto">
@@ -30,16 +42,22 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Search..."
+              value={searchInputValue}
+              onChange={(e) => setSearchInputValue(e.target.value)}
               className="py-2 px-4 pr-10 border bg-white text-black "
               style={{ width: "600px" }} // Set your custom width here
             />
-            <button className="absolute right-0 top-0 bottom-0 px-3 py-2 bg-slate-500 text-white">
+            <button
+              onClick={handleSearch}
+              className="absolute right-0 top-0 bottom-0 px-3 py-2 bg-slate-500 text-white"
+            >
               <FontAwesomeIcon icon={faSearch} size="2x" />
             </button>
           </div>
 
           <div className="text-black">
-            <AiOutlineShoppingCart className="text-3xl" /> {/* Use text sizing class */}
+            <AiOutlineShoppingCart className="text-3xl" />{" "}
+            {/* Use text sizing class */}
           </div>
 
           {/* 3rd column   */}

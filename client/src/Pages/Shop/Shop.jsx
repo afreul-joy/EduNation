@@ -9,8 +9,9 @@ import ProductListCard from "../../Components/Card/ProductListCard";
 import Select from "react-select";
 import Pagination from "../../Components/Pagination/Pagination";
 const Shop = () => {
-  const { products, filters, setFilters, clearFilters } =
+  const { products, filters, setFilters, clearFilters, searchQuery } =
     useContext(ShopContext);
+
   const [viewType, setViewType] = useState("grid"); // Add state for view type
 
   const filteredProducts = products.filter((product) => {
@@ -106,6 +107,7 @@ const Shop = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
   return (
     <div className="flex flex-wrap ">
       {/* Left Column - Filters */}
@@ -252,8 +254,9 @@ const Shop = () => {
           </div>
           {/* Book Count */}
           <div className="mb-2 sm:mb-0">
-            <h2 className="text-3xl font-light text-gray-600">
-              {currentData.length} Book Found
+            <h2 className="text-xl font-light text-gray-600">
+              {currentData.length} Book{currentData.length !== 1 ? "s" : ""}{" "}
+              Found {searchQuery && `in "${searchQuery}"`}
             </h2>
           </div>
           {/* Sorting */}

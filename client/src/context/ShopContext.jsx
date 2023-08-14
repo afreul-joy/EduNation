@@ -5,7 +5,9 @@ import { createContext, useEffect, useState } from "react";
 export const ShopContext = createContext();
 
 const ShopContextProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]); 
+  const [searchQuery, setSearchQuery] = useState(""); // Add this state for search query
+
   const [filters, setFilters] = useState({
     category: "",
     minPrice: "", // New property for minimum price
@@ -13,6 +15,7 @@ const ShopContextProvider = ({ children }) => {
     rating: "",
     sortBy: "priceLowToHigh",
     sliderRange: [0, 5000], // Added slider range
+    searchQuery: "", // Add searchQuery to your filters state
   });
 
   const clearFilters = () => {
@@ -37,9 +40,29 @@ const ShopContextProvider = ({ children }) => {
       });
   }, []);
 
+  // Filter products based on search query
+  const filteredProductsSearch = products.filter((product) => {
+    const lowerCaseSearch = searchQuery.toLowerCase();
+    return (
+      product.bookName.toLowerCase().includes(lowerCaseSearch) ||
+      product.author.toLowerCase().includes(lowerCaseSearch) || 
+      product.category.toLowerCase().includes(lowerCaseSearch)
+      // Add more fields to search if needed
+    );
+  });
+
+
   return (
     <ShopContext.Provider
-      value={{ products, setProducts, filters, setFilters,clearFilters }}
+    value={{
+      products: filteredProductsSearch, // Use filteredProductsSearch here
+      setProducts,
+      filters,
+      setFilters,
+      clearFilters,
+      searchQuery, // Pass searchQuery to context
+      setSearchQuery, // Pass setSearchQuery to context
+    }}
     >
       {children}
     </ShopContext.Provider>
