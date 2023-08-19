@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProductCard from "../../Components/Card/ProductCard";
 import { ShopContext } from "../../context/ShopContext";
 import { FaStar } from "react-icons/fa";
@@ -9,9 +9,16 @@ import ProductListCard from "../../Components/Card/ProductListCard";
 import Select from "react-select";
 import Pagination from "../../Components/Pagination/Pagination";
 const Shop = () => {
-  const { products, filters, setFilters, clearFilters, searchQuery } =
+  const { products, filters, setFilters, clearFilters, searchQuery ,setSearchQuery} =
     useContext(ShopContext);
 
+    const queryParam = new URLSearchParams(location.search).get("query") || "";
+
+    useEffect(() => {
+      setSearchQuery(queryParam);
+      // Rest of the code remains the same
+    }, [queryParam]);
+  
   const [viewType, setViewType] = useState("grid"); // Add state for view type
 
   const filteredProducts = products.filter((product) => {
