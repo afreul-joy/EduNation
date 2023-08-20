@@ -11,7 +11,8 @@ const Navbar = () => {
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
-  const location = useLocation(); // Get current location
+  const location = useLocation();
+  const [currentIndex, setCurrentIndex] = useState(-1);
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
@@ -26,7 +27,8 @@ const Navbar = () => {
           product.bookName.toLowerCase().includes(searchTerm) &&
           product.bookName !== searchTerm
       );
-      setSuggestions(filteredSuggestions.slice(0, 5)); 
+      setSuggestions(filteredSuggestions.slice(0, 5));
+      setCurrentIndex(-1); // Reset the current index when suggestions change
     }
   };
 
@@ -35,12 +37,52 @@ const Navbar = () => {
       setSearchQuery(value);
       navigate(`/shop?query=${encodeURIComponent(value)}`);
     }
+    setSuggestions([]); // Clear suggestions when search is triggered
   };
 
-  // Reset input value when navigating away from /shop
+  const handleSuggestionClick = (product) => {
+    setValue(product.bookName);
+    setSearchQuery(product.bookName);
+    setSuggestions([]);
+    navigate(`/shop?query=${encodeURIComponent(product.bookName)}`);
+  };
+
+  const handleKeyboardNavigation = (event) => {
+    if (suggestions.length === 0) {
+      return;
+    }
+
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      const nextIndex = (currentIndex + 1) % suggestions.length;
+      setCurrentIndex(nextIndex);
+      setValue(suggestions[nextIndex].bookName);
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      const prevIndex =
+        (currentIndex - 1 + suggestions.length) % suggestions.length;
+      setCurrentIndex(prevIndex);
+      setValue(suggestions[prevIndex].bookName);
+    } else if (event.key === "Enter") {
+      event.preventDefault();
+      handleSearch(); // Always trigger search when Enter is pressed
+      if (currentIndex !== -1) {
+        handleSuggestionClick(suggestions[currentIndex]);
+      } else {
+        handleSearch();
+      }
+    }
+  };
+
+  const handleSuggestionsMouseLeave = () => {
+    setSuggestions([]); // Clear suggestions when the cursor leaves the suggestions box
+  };
+
   useEffect(() => {
     if (location.pathname !== "/shop") {
       setValue("");
+      setSuggestions([]);
+      setCurrentIndex(-1);
     }
   }, [location.pathname]);
 
@@ -57,6 +99,8 @@ const Navbar = () => {
               placeholder="Search Book..."
               value={value}
               onChange={handleInputChange}
+              onFocus={() => setSuggestions(products)}
+              onKeyDown={handleKeyboardNavigation}
               className="py-2 px-4 pr-10 border bg-white text-black md:w-14 lg:w-[600px] focus:outline-none focus:ring focus:border-blue-300"
             />
             <button
@@ -66,16 +110,17 @@ const Navbar = () => {
             >
               <FontAwesomeIcon icon={faSearch} size="2x" />
             </button>
-            <div className="absolute mt-2 bg-white  shadow-md md:w-14 lg:w-[600px]">
-              {suggestions.map((product) => (
+            <div
+              className="absolute mt-2 bg-white shadow-md md:w-14 lg:w-[600px]"
+              onMouseLeave={handleSuggestionsMouseLeave} // Add this line
+            >
+              {suggestions.slice(0, 5).map((product, index) => (
                 <div
                   key={product.id}
-                  className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                  onClick={() => {
-                    setValue(product.bookName);
-                    setSuggestions([]);
-                    handleSearch();
-                  }}
+                  className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${
+                    index === currentIndex ? "bg-gray-100" : ""
+                  }`}
+                  onClick={() => handleSuggestionClick(product)}
                 >
                   {product.bookName}
                 </div>
