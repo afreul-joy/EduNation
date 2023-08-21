@@ -18,10 +18,10 @@ const Navbar = () => {
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
     setValue(inputValue);
-  
+
     if (inputValue.trim() === "") {
       setSuggestions([...filteredProducts]);
-      setSearchQuery(""); 
+      setSearchQuery("");
     } else {
       const searchTerm = inputValue.toLowerCase();
       const filteredSuggestions = filteredProducts.filter(
@@ -34,19 +34,17 @@ const Navbar = () => {
       setCurrentIndex(-1);
     }
   };
-  
 
   const handleSearch = () => {
     if (value.trim() !== "") {
       setSearchQuery(value);
-      setSuggestions([]); 
+      setSuggestions([]);
       navigate(`/shop?query=${encodeURIComponent(value)}`);
     } else {
-      setSearchQuery(""); 
-      setSuggestions([]); 
+      setSearchQuery("");
+      setSuggestions([]);
     }
   };
-  
 
   const handleSuggestionClick = (product) => {
     setValue(product.bookName);
@@ -73,7 +71,7 @@ const Navbar = () => {
       setValue(suggestions[prevIndex].bookName);
     } else if (event.key === "Enter") {
       event.preventDefault();
-      handleSearch(); 
+      handleSearch();
       if (currentIndex !== -1) {
         handleSuggestionClick(suggestions[currentIndex]);
       } else {
@@ -83,7 +81,7 @@ const Navbar = () => {
   };
 
   const handleSuggestionsMouseLeave = () => {
-    setSuggestions([]); 
+    setSuggestions([]);
   };
 
   useEffect(() => {
@@ -97,7 +95,7 @@ const Navbar = () => {
 
   return (
     <nav className="p-4 border-b">
-      <div className="container mx-auto">
+      <div className="container mx-auto relative">
         <div className="flex justify-center items-center space-x-4">
           <div className="text-2xl font-bold">
             <Link to="/">EduNation</Link>
@@ -120,8 +118,8 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faSearch} size="2x" />
             </button>
             <div
-              className="absolute mt-2 bg-white shadow-md md:w-14 lg:w-[600px]"
-              onMouseLeave={handleSuggestionsMouseLeave} // Add this line
+              className="absolute mt-2 bg-white shadow-md md:w-14 lg:w-[600px] z-10" // Add z-index here
+              onMouseLeave={handleSuggestionsMouseLeave}
             >
               {suggestions.slice(0, 5).map((product, index) => (
                 <div
