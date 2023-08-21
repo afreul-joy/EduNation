@@ -7,7 +7,8 @@ import { ShopContext } from "../../context/ShopContext";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const { setSearchQuery, products } = useContext(ShopContext);
+  const { setSearchQuery, filteredProducts, searchQuery } = useContext(ShopContext);
+
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
@@ -17,28 +18,35 @@ const Navbar = () => {
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
     setValue(inputValue);
-
+  
     if (inputValue.trim() === "") {
-      setSuggestions([]);
+      setSuggestions([...filteredProducts]);
+      setSearchQuery(""); 
     } else {
       const searchTerm = inputValue.toLowerCase();
-      const filteredSuggestions = products.filter(
+      const filteredSuggestions = filteredProducts.filter(
         (product) =>
           product.bookName.toLowerCase().includes(searchTerm) &&
           product.bookName !== searchTerm
       );
-      setSuggestions(filteredSuggestions.slice(0, 5));
-      setCurrentIndex(-1); // Reset the current index when suggestions change
+      setSuggestions([...filteredSuggestions.slice(0, 5)]);
+      setSearchQuery(inputValue);
+      setCurrentIndex(-1);
     }
   };
+  
 
   const handleSearch = () => {
     if (value.trim() !== "") {
       setSearchQuery(value);
+      setSuggestions([]); 
       navigate(`/shop?query=${encodeURIComponent(value)}`);
+    } else {
+      setSearchQuery(""); 
+      setSuggestions([]); 
     }
-    setSuggestions([]); // Clear suggestions when search is triggered
   };
+  
 
   const handleSuggestionClick = (product) => {
     setValue(product.bookName);
@@ -65,7 +73,7 @@ const Navbar = () => {
       setValue(suggestions[prevIndex].bookName);
     } else if (event.key === "Enter") {
       event.preventDefault();
-      handleSearch(); // Always trigger search when Enter is pressed
+      handleSearch(); 
       if (currentIndex !== -1) {
         handleSuggestionClick(suggestions[currentIndex]);
       } else {
@@ -75,7 +83,7 @@ const Navbar = () => {
   };
 
   const handleSuggestionsMouseLeave = () => {
-    setSuggestions([]); // Clear suggestions when the cursor leaves the suggestions box
+    setSuggestions([]); 
   };
 
   useEffect(() => {
@@ -83,8 +91,9 @@ const Navbar = () => {
       setValue("");
       setSuggestions([]);
       setCurrentIndex(-1);
+      setSearchQuery("");
     }
-  }, [location.pathname]);
+  }, [location.pathname, setSearchQuery]);
 
   return (
     <nav className="p-4 border-b">
@@ -97,9 +106,9 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Search Book..."
-              value={value}
+              value={searchQuery}
               onChange={handleInputChange}
-              onFocus={() => setSuggestions(products)}
+              onFocus={() => setSuggestions(filteredProducts)}
               onKeyDown={handleKeyboardNavigation}
               className="py-2 px-4 pr-10 border bg-white text-black md:w-14 lg:w-[600px] focus:outline-none focus:ring focus:border-blue-300"
             />
