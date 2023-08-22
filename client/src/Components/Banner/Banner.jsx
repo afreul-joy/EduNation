@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Zoom, Rotate } from "react-reveal";
 import banner from "../../../src/Assets/Images/banner.jpg";
+import { BsFillArrowLeftSquareFill, BsFillArrowRightSquareFill } from 'react-icons/bs';
 
 const Banner = () => {
   return (
@@ -13,6 +14,8 @@ const Banner = () => {
                 Welcome to <span className="text-teal-600">EDUNATION</span>{" "}
                 Bookstore
               </h1>
+              <BsFillArrowRightSquareFill />
+<BsFillArrowLeftSquareFill />
             </Zoom>
             <Zoom delay={300}>
               <p className="text-lg md:text-xl text-gray-700 mb-6 transition-opacity duration-500 opacity-70 hover:opacity-100">
