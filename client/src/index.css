@@ -2,3 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Add this to your CSS file or style block */
+.slider-wrapper {
+    position: relative;
+  }
+  
+  .arrow-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    z-index: 1;
+  }
+  
+  .left {
+    left: 0;
+  }
+  
+  .right {
+    right: 0;
+  }
+  
